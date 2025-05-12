@@ -29,24 +29,46 @@ namespace project
         public static void TaoVaCapNhatFileTaiKhoan(TaiKhoan tk)
         {
             string tenFile = $"{tk.ID}.txt";
-
-            string thongTinTK = $"Tên tài khoản: {tk.TenTK}\nSố dư tài khoản: {tk.SoDuTK}\nLoại tiền tệ: {tk.LoaiTienTe}";
-
             using (StreamWriter writer = new StreamWriter(tenFile))
             {
-                writer.WriteLine(thongTinTK);
+                writer.WriteLine(tk.ToString());
             }
         }
+        public static TaiKhoan DocFileTaiKhoan(string nameFile)
+        {
+            if (!File.Exists(nameFile)) return null;
 
+            using (StreamReader sr = new StreamReader(nameFile))
+            {
+                string line = sr.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    string[] arr = line.Split('-');
+                    if (arr.Length == 4)
+                    {
+                        string id = arr[0];
+                        string tenTK = arr[1];
+                        if (decimal.TryParse(arr[2], out decimal soDuTK))
+                        {
+                            string loaiTienTe = arr[3];
+                            return new TaiKhoan(id, tenTK, soDuTK, loaiTienTe);
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
         public TaiKhoan()
         {
         }
-        
+
+
         public override string? ToString()
         {
-            return $"{iD}-{tenTK}-{soDuTK}-{loaiTienTe}";
+            return $"{iD}-{tenTK}-{soDuTK:N0}-{loaiTienTe}";
         }
 
-        
+
     }
 }

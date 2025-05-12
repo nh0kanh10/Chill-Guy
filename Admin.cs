@@ -36,7 +36,10 @@ namespace project
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
+                    if (string.IsNullOrWhiteSpace(line)) continue;
                     string[] arr = line.Split('-');
+                    if (arr.Length < 2) continue;
+
                     list.Add(new Admin(arr[0], arr[1]));
                 }
             }
@@ -54,7 +57,7 @@ namespace project
             }
         }
         //check xem ten dang nhap co trong danh sach admin khong va co dung mat khau khong
-        public static Admin CheckLogin(string user, string pin, List<Admin> list)
+        public static Admin CheckLoginADMIN(string user, string pin, List<Admin> list)
         {
             foreach (Admin item in list)
             {

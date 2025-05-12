@@ -44,7 +44,7 @@ namespace project
         {
             Stack<LichSuGiaoDich> list = new Stack<LichSuGiaoDich>();
             if (!File.Exists(nameFile)) return list;
-            using (StreamReader sr = new StreamReader("Admin.txt"))
+            using (StreamReader sr = new StreamReader(nameFile))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
